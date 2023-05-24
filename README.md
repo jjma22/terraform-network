@@ -2,7 +2,7 @@
 
 ![A hero starting their journey looking at a tower](./media/images/journey.png "A hero starting their journey looking at a tower")
 
-It is time to take those Terraform skills you have been developing and create your own project. 
+It is time to take those Terraform skills you have been developing and create your own project.
 
 Time to start your journey and create a brand new Terraform project from scratch. You know on the journey there will be challenges, that battle with your arch enemy "remote state", the boss fight of "sso authentication" but you are more than capable - you got this!
 
@@ -16,18 +16,19 @@ But that isn't everything....
 
 We want this to be production ready so your solution should have
 
-* Completed using terraform
-* A production ready network setup with both public and private subnets
-* Utilise remote state for storing the terraform state
-* Make use of terraform variables and looping where required
-* The HTML page must be served by back an NGINX web server
-* The NGINX web server must reside within EC2 instances that are within the public subnet
-* The NGINX web server should respond on port 80
-* You should design for failure - we do not want a loss of service if one of the EC2 instances fails
-* Be considerate and intentional of how your files and directory structures are named
-* A comprehensive **INSTRUCTIONS.md** file that provide instructions on how to use the repository and how to get things working
+- Completed using terraform
+- A production ready network setup with both public and private subnets
+- Utilise remote state for storing the terraform state
+- Make use of terraform variables and looping where required
+- Make your code as DRY and reusable as possible by creating modules where you can
+- The HTML page must be served by back an NGINX web server
+- The NGINX web server must reside within EC2 instances that are within the public subnet
+- The NGINX web server should respond on port 80
+- You should design for failure - we do not want a loss of service if one of the EC2 instances fails
+- Be considerate and intentional of how your files and directory structures are named
+- A comprehensive **INSTRUCTIONS.md** file that provide instructions on how to use the repository and how to get things working
 
-Having to understand software that you might not have come across, such as NGINX in this scenario, is part of being a cloud engineer.  You will experience development teams creating apps in all different languages and approaches - you have to work out how to get them deployed so this exercise is the perfect preparation to try and work that out.
+Having to understand software that you might not have come across, such as NGINX in this scenario, is part of being a cloud engineer. You will experience development teams creating apps in all different languages and approaches - you have to work out how to get them deployed so this exercise is the perfect preparation to try and work that out.
 
 ## Tearing things down
 
@@ -40,11 +41,9 @@ You should run `terraform destroy` to remove everything.
 1. Fork this GitHub repository
 
 2. Make regular commits and pushes back to your repository as you write your code. It help us to see the journey you worked through when completing the task.
-    
 3. Share your GitHub link
 
 4. Tear things down as described above
-
 
 ## Further reading
 
