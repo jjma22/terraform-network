@@ -1,0 +1,8 @@
+#!/bin/bash
+sudo apt update
+sudo apt install nginx -y
+sudo ufw allow 'Nginx HTTP'
+sudo ufw allow 'OpenSSH'
+sudo ufw allow ssh
+yes | sudo ufw enable
+sed -i -e 's/Welcome/inside/g' /var/www/html/index.html
