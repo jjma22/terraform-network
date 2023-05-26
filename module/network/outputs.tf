@@ -6,4 +6,4 @@ output "vpc_id" {
 output "availability_zones" {
     description = "Availability zones in VPC"
     value = var.availability-zones
-}
+} 

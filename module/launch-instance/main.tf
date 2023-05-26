@@ -54,3 +54,67 @@ resource "aws_vpc_security_group_ingress_rule" "ipv6_rules_ingress" {
 
 
 }
+
+#create launch template
+resource "aws_ami_from_instance" "nginx" {
+  name               = "nginx-example"
+  source_instance_id = aws_instance.new_instance.id
+}
+
+resource "aws_launch_template" "nginx_launch_template" {
+    name = "nginx_launch_template"
+   
+    image_id = aws_ami_from_instance.nginx.id
+    key_name = "NewKeyPairNameFirstAttempt"
+    instance_type = "t2.micro"
+    vpc_security_group_ids = [aws_security_group.new_sg.id]
+    
+    user_data = "${base64encode(var.user-data)}"
+}
+
+resource "aws_lb_target_group" "nginx" {
+  name     = "nginx"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+}
+
+module "alb" {
+  source  = "terraform-aws-modules/alb/aws"
+  version = "~> 8.0"
+
+  name = "my-alb"
+
+  load_balancer_type = "application"
+
+  vpc_id             = var.vpc_id
+  subnets            = ["subnet-099801d1aa79eb941","subnet-0a3a3a80478313878", "subnet-0b9b6711cb7d29db3"]
+  security_groups    = [aws_security_group.new_sg.id]
+  }
+
+resource "aws_alb_listener" "alb-listener-group" {
+  load_balancer_arn = "${module.alb.lb_arn}"
+  port = "80"
+  protocol = "HTTP"
+
+  default_action {
+    target_group_arn = aws_lb_target_group.nginx.id
+    type             = "forward"
+  }
+}
+
+module "asg" {
+  source  = "terraform-aws-modules/autoscaling/aws"
+  name = "terraform-asg"
+
+  create_launch_template = false
+  launch_template = aws_launch_template.nginx_launch_template.name
+   vpc_zone_identifier = ["subnet-099801d1aa79eb941","subnet-0a3a3a80478313878", "subnet-0b9b6711cb7d29db3"]
+   target_group_arns = ["${aws_lb_target_group.nginx.id}"]
+
+   health_check_type = "EC2"
+
+  min_size = 2
+  max_size = 4
+  desired_capacity = 3
+}
