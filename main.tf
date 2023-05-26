@@ -27,5 +27,5 @@ module "launch-instances" {
       description = "SSH"
       cidr_blocks = "92.233.52.136/32"
     }]
-    //user-data = "${file("user-data.sh")}"
+    user-data = "${file("/home/user_admin/NCCloud/week1/ce-terraform-project/user-data.sh")}"
 }

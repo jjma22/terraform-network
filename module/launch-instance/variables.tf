@@ -104,7 +104,7 @@ variable "vpc_id" {
   default ="please provide"
 }
 
-# variable "user-data" {
-#   type = string
-#   default = "hello world"
-# }
+variable "user-data" {
+  type = string
+  default = "hello world"
+}

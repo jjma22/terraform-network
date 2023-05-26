@@ -7,7 +7,7 @@ resource "aws_instance" "new_instance" {
   associate_public_ip_address = var.ec2-assossciated-public-ip
   key_name                    = var.key-name
   security_groups             = [aws_security_group.new_sg.name]
-  user_data = "${file("/home/user_admin/NCCloud/week1/ce-terraform-project/module/launch-instance/user-data.sh")}"
+  user_data = var.user-data
 
 
   tags = {
