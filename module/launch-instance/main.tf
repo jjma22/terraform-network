@@ -65,7 +65,7 @@ resource "aws_launch_template" "nginx_launch_template" {
     name = "nginx_launch_template"
    
     image_id = aws_ami_from_instance.nginx.id
-    key_name = "NewKeyPairNameFirstAttempt"
+    key_name = var.key-name
     instance_type = "t2.micro"
     vpc_security_group_ids = [aws_security_group.new_sg.id]
     
@@ -88,7 +88,7 @@ module "alb" {
   load_balancer_type = "application"
 
   vpc_id             = var.vpc_id
-  subnets            = ["subnet-099801d1aa79eb941","subnet-0a3a3a80478313878", "subnet-0b9b6711cb7d29db3"]
+  subnets            = var.public-subnet-ids
   security_groups    = [aws_security_group.new_sg.id]
   }
 
@@ -109,7 +109,7 @@ module "asg" {
 
   create_launch_template = false
   launch_template = aws_launch_template.nginx_launch_template.name
-   vpc_zone_identifier = ["subnet-099801d1aa79eb941","subnet-0a3a3a80478313878", "subnet-0b9b6711cb7d29db3"]
+   vpc_zone_identifier = var.public-subnet-ids
    target_group_arns = ["${aws_lb_target_group.nginx.id}"]
 
    health_check_type = "EC2"

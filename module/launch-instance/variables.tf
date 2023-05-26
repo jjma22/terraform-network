@@ -108,3 +108,7 @@ variable "user-data" {
   type = string
   default = "hello world"
 }
+variable "public-subnet-ids" {
+  type = list(string)
+  default = [""]
+}

@@ -3,6 +3,10 @@ module "create-network" {
     vpc-name = "ce-project-vpc"
 }
 
+data "http" "myip" {
+  url = "http://ipv4.icanhazip.com"
+}
+
 module "launch-instances" {
     vpc_id = module.create-network.vpc_id
     source = "./module/launch-instance"
@@ -25,7 +29,11 @@ module "launch-instances" {
       to_port     = 22
       protocol    = "tcp"
       description = "SSH"
-      cidr_blocks = "92.233.52.136/32"
-    }]
-    user-data = "${file("/home/user_admin/NCCloud/week1/ce-terraform-project/user-data.sh")}"
+      cidr_blocks = "${chomp(data.http.myip.body)}/32"
+    }
+    ]
+    user-data = file("${path.module}/user-data.sh")
+    public-subnet-ids = module.create-network.public_subnet_ids
 }
+
+
