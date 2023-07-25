@@ -1,4 +1,4 @@
-# Instructions for repositroy
+# Instructions for repository
 This repository creates a production ready network that can deploy a wesbite onto a highly available server.
 It features a load balancer to distribute traffic and is provisioned using an auto-scaling group, so if any instances fail, another will be deployed.
 ## Prerequisite 
